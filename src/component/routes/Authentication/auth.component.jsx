@@ -2,12 +2,14 @@
 // import {useEffect} from 'react';
 // import {getRedirectResult} from 'firebase/auth';
 
-import Signup from "../../sign-up-form/sign-up-form.component"
+import Signup from "../../sign-up-form/sign-up-form.component";
+import SignIn from "../../sign-in-form/sign-in-form.component";
+import './authentication.styles.scss';
 
 
-import { SignInWithGooglePopup ,  createUserDocumentFromAuth  } from '../../../utils/firebase/firebase.utils'
 
-const SignIn = () => {
+
+const Authentication = () => {
   //UserEffect will only be used after user is redirected after clicking sign in with google redirect what this will do is it will add the data to db
   // useEffect(
   //   () => async () => {
@@ -25,17 +27,12 @@ const SignIn = () => {
 */
 
 
-  const logGoogleUserWithPopup = async () => {
-    const response = await SignInWithGooglePopup();
-  const userDoc = await createUserDocumentFromAuth(response);
-  }
-
   return(
-    <div>
-    <h1>This is a sign in page </h1>
-    <button onClick = {logGoogleUserWithPopup}>Sign In with google POP UP</button>
-<Signup />
+    <div className='authentication-container'>
+    
+    <SignIn / >
+    <Signup />
     </div>
   )
 }
-export default SignIn;
+export default Authentication;
