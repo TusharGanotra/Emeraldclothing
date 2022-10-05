@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState , useContext} from 'react';
 import Button from '../Button/button.component' ;
 import './sign-up.styles.scss'
+import { UserContext } from '../../context/user.context'
 
 import  {createAuthUserWithEmailAndPassword,
 createUserDocumentFromAuth,} from '../../utils/firebase/firebase.utils'
@@ -16,6 +17,9 @@ const Signup = () => {
 
   const [formfields ,setformfields] = useState(defaultFormFields);
   const {displayName , email , password , confirmPassword } = formfields;
+
+const { setcurrentUser } = useContext(UserContext);
+
 
   //resetFormfields basically changes the input back to empty after data is processed or a function is called
 
@@ -40,6 +44,8 @@ const resetFormfields = () =>{
          email,
          password
        );
+
+       setcurrentUser(user);
 
        await createUserDocumentFromAuth(user, { displayName });
        resetFormfields();

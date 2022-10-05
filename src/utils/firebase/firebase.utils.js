@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth , signInWithPopup , signInWithRedirect,  GoogleAuthProvider , createUserWithEmailAndPassword , signInWithEmailAndPassword, } from "firebase/auth";
+import { getAuth , signInWithPopup , signInWithRedirect,  GoogleAuthProvider , signOut ,  createUserWithEmailAndPassword , signInWithEmailAndPassword, } from "firebase/auth";
 
 import {
   getFirestore,
@@ -34,10 +34,12 @@ provider.setCustomParameters({
 export const auth = getAuth();
 
 //Allowing user To sign in with google uisng popup screen
-export const signInWithGooglePopup = () => {
+export const signInWithGooglePopup = () =>
   signInWithPopup(auth, provider);
-};
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, provider);
 
+ //SignInwithgoogle popu doesnot work without signInWithGoogleRedirect
 
 
 export const db = getFirestore();
@@ -91,3 +93,5 @@ export const signInAuthUserWithEmailAndPassword = async (email,password) =>{
  return await signInWithEmailAndPassword(auth, email, password);
 
 }
+
+export const signOutUser = async () => await signOut(auth);
