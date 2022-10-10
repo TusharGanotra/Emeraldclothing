@@ -4,7 +4,7 @@ import './index.css';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import { UserProvider} from './context/user.context';
-import { ProductsProvider} from './context/products.context';
+import { CategoriesProvider} from './context/categories.context';
 import {CartProvider} from './context/cart.context';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,16 +13,16 @@ root.render(
   <React.StrictMode>
   <BrowserRouter>
   <UserProvider>
-  <ProductsProvider>
+  <CategoriesProvider>
   <CartProvider>
     <App />
     </CartProvider>
-    </ProductsProvider>
+    </CategoriesProvider>
     </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
-//CartProvider is nested inoside Product provider as cart will be only created when we add products or items to the cart 
+//CartProvider is nested inoside Product provider as cart will be only created when we add products or items to the cart
 //Now we nested product provider inside user provider because in large applicationse products are filtered based on the users interest and geolocation of the user
 //Anything which will be enclosed inside <userprovider>..<</userprovider> will be access all the data
 // If you want to start measuring performance in your app, pass a function

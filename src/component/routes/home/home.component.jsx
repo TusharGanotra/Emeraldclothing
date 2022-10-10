@@ -1,6 +1,7 @@
 import Categories from "../../Directory/categories.component"
 import Carousel from "../../Carousel/carousel.component"
 
+
 const Home = () => {
 
   const categories =

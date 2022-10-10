@@ -6,7 +6,11 @@ import {
   getFirestore,
   doc, // to get instance of doc
   getDoc, // to access doc
-  setDoc // to update doc
+  setDoc, // to update doc
+ collection,
+ writeBatch,
+ query,
+ getDocs
 } from "firebase/firestore"
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,6 +33,40 @@ const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt : 'select_account',
 });
+
+
+
+//To add data inside firestore from our local .js file
+export const addCollectionAndDocuments = async (
+    collectionKey,
+    objectsToAdd
+  ) => {
+    const batch = writeBatch(db);
+    const collectionRef = collection(db, collectionKey);
+
+    objectsToAdd.forEach((object) => {
+       const docRef = doc(collectionRef, object.title.toLowerCase());
+       batch.set(docRef, object);
+    });
+
+    await batch.commit();
+    console.log('done');
+  };
+
+
+  export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+      const { title, items } = docSnapshot.data();
+      acc[title.toLowerCase()] = items;
+      return acc;
+    }, {});
+
+    return categoryMap;
+  };
 
 
 export const auth = getAuth();
